@@ -19,23 +19,30 @@ public class SentenceDetect {
 		//Get our current location
 		File currentLocation = new File(SentenceDetect.class.getProtectionDomain().getCodeSource().getLocation().getFile());
 		
+		//Initialize our variables for try catch
 		sDetect = null;
         InputStream modelIn = null;
         try {
         	
-        	
-        	
-            // Loading sentence detection model
+            // Loading sentence detection model / Loading training data
      	   modelIn = new FileInputStream(currentLocation.getParentFile().getParent() + "/en-sent.bin");
      	   final SentenceModel sentenceModel = new SentenceModel(modelIn);
      	   modelIn.close();
-          
-            sDetect = new SentenceDetectorME(sentenceModel);
+           
+     	   //Assign our now trained Sentence detector
+           sDetect = new SentenceDetectorME(sentenceModel);
           
          } catch (final IOException ioe) {
-         	//Error
+         	
+        	 //Error
             ioe.printStackTrace();
+            
+            //Exit the app
+            HomeMain.exitApp();
+            
          } finally {
+        	 
+        	 //Close the training data input stream
             if (modelIn != null) {
                try {
                   modelIn.close();
@@ -52,6 +59,7 @@ public class SentenceDetect {
 		else return false;
 	}
 	
+	//Function to return the number of sentences in a meme
 	public int numSentences(String input) {
 		
 		return sDetect.sentDetect(input).length;
