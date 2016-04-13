@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -14,12 +16,17 @@ public class SentenceDetect {
 	
 	public SentenceDetect() {
 		
-		SentenceDetector sDetect = null;
+		//Get our current location
+		File currentLocation = new File(SentenceDetect.class.getProtectionDomain().getCodeSource().getLocation().getFile());
+		
+		sDetect = null;
         InputStream modelIn = null;
         try {
         	
+        	
+        	
             // Loading sentence detection model
-     	   modelIn = getClass().getResourceAsStream("../en-sent.bin");
+     	   modelIn = new FileInputStream(currentLocation.getParentFile().getParent() + "/en-sent.bin");
      	   final SentenceModel sentenceModel = new SentenceModel(modelIn);
      	   modelIn.close();
           
@@ -43,6 +50,11 @@ public class SentenceDetect {
 		//Check the input
 		if(sDetect.sentDetect(input).length > 0) return true;
 		else return false;
+	}
+	
+	public int numSentences(String input) {
+		
+		return sDetect.sentDetect(input).length;
 	}
 
 }

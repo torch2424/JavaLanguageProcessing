@@ -36,6 +36,8 @@ public class HomeMain {
         else System.out.println("is no sentnce");
         
         
+        System.out.println("haz " + sDetect.numSentences(memeInput) + " sentezncez");
+        
 	}
 	
 	//Function to exit the app
