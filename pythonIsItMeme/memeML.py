@@ -64,7 +64,7 @@ testingTokens = [];
 for meme in testingList:
     testingTokens.append(nltk.pos_tag(nltk.word_tokenize(meme)))
 
-#Test the testing data!
+#Print our testing data
 for i in range(0, len(testingList) - 1):
     tempArray = {testingList[i], testingTokens[i]}
     print clf.predict(tempArray)
