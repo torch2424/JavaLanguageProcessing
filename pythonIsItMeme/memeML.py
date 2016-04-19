@@ -1,5 +1,5 @@
 import sklearn
-from sklearn import tree
+from sklearn.naive_bayes import MultinomialNB
 import nltk
 
 #Download ntlk support
@@ -59,10 +59,8 @@ features.extend(noMemeTrainList)
 for i in range(0, len(noMemeTrainList) - 1):
     labels.append(0)
 
-#Using a decision tree classifier
-clf = tree.DecisionTreeClassifier()
-print features[3]
-clf = clf.fit(features, labels)
+#Using a naive bayes Classifier
+clf = MultinomialNB().fit(features, labels)
 
 #Read in our testing
 testingList = [];
@@ -78,5 +76,4 @@ for meme in testingList:
 
 #Print our testing data
 for i in range(0, len(testingList) - 1):
-    tempArray = {testingList[i], testingTokens[i]}
-    print clf.predict(tempArray)
+    print clf.predict(testingList[i])
