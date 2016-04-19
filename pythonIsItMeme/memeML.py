@@ -1,4 +1,5 @@
 import sklearn
+from sklearn import tree
 import nltk
 
 #Download ntlk support
@@ -20,18 +21,21 @@ memeTrainList = [];
 
 with open('trainingDataMeme', 'r') as f:
     for line in f:
-        memeTrainList.append(line)
+        memeTrainList.extend(line)
 
 #Now use NLP to the strings
 memeTrainTokens = [];
 for meme in memeTrainList:
-    memeTrainTokens.append(nltk.pos_tag(nltk.word_tokenize(meme)))
+    memeTrainTokens.extend(nltk.pos_tag(nltk.word_tokenize(meme)))
 
 #Add our memes to our trainindgdata
+# for i in range(0, len(memeTrainList) - 1):
+#     print memeTrainTokens[i];
+#     tempArray = {memeTrainList[i], memeTrainTokens[i]}
+#     features.append(tempArray)
+#     labels.append(1)
+features.extend(memeTrainList)
 for i in range(0, len(memeTrainList) - 1):
-    print memeTrainTokens[i];
-    tempArray = {memeTrainList[i], memeTrainTokens[i]}
-    features.append(tempArray)
     labels.append(1)
 
 #Read in our non-meme training data
@@ -39,21 +43,25 @@ noMemeTrainList = [];
 
 with open('trainingDataNoMeme', 'r') as f:
     for line in f:
-        noMemeTrainList.append(line)
+        noMemeTrainList.extend(line)
 
 #Now use NLP to the strings
 noMemeTrainTokens = [];
 for meme in memeTrainList:
-    noMemeTrainTokens.append(nltk.pos_tag(nltk.word_tokenize(meme)))
+    noMemeTrainTokens.extend(nltk.pos_tag(nltk.word_tokenize(meme)))
 
 #Add our non-memes to our trainindgdata
+# for i in range(0, len(noMemeTrainList) - 1):
+#     tempArray = {noMemeTrainList[i], noMemeTrainTokens[i]}
+#     features.append(tempArray)
+#     labels.append(0)
+features.extend(noMemeTrainList)
 for i in range(0, len(noMemeTrainList) - 1):
-    tempArray = {noMemeTrainList[i], noMemeTrainTokens[i]}
-    features.append(tempArray)
     labels.append(0)
 
 #Using a decision tree classifier
 clf = tree.DecisionTreeClassifier()
+print features[3]
 clf = clf.fit(features, labels)
 
 #Read in our testing
