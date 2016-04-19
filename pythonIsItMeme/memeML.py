@@ -1,6 +1,9 @@
-import scikit
-import tree
+import sklearn
 import nltk
+
+#Download ntlk support
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
 
 #Features are weight and bumbpiness
 #features = [[140, 1], [130, 1], [150, 0], [170, 0]]
@@ -26,6 +29,7 @@ for meme in memeTrainList:
 
 #Add our memes to our trainindgdata
 for i in range(0, len(memeTrainList) - 1):
+    print memeTrainTokens[i];
     tempArray = {memeTrainList[i], memeTrainTokens[i]}
     features.append(tempArray)
     labels.append(1)
