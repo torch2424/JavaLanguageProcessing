@@ -1,6 +1,11 @@
 import nltk
 from textblob.classifiers import NaiveBayesClassifier
 
+#Utf 8 support
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 #Create our features and lables
 #1 for meme, 0 for not meme
 features = []
@@ -18,10 +23,12 @@ features.extend(memeTrainList)
 noMemeTrainList = [];
 with open('trainingDataNoMeme', 'r') as f:
     for line in f:
-        memeTrainList.append([line.split('\n')[0], 'nomeme'])
+        noMemeTrainList.append([line.split('\n')[0], 'nomeme'])
 
 #Add the nomemes to the features
 features.extend(noMemeTrainList)
+
+print features
 
 #Using a naive bayes Classifier
 clf = NaiveBayesClassifier(features)
