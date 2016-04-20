@@ -28,17 +28,25 @@ with open('trainingDataNoMeme', 'r') as f:
 #Add the nomemes to the features
 features.extend(noMemeTrainList)
 
-print features
-
 #Using a naive bayes Classifier
-clf = NaiveBayesClassifier(features)
+bClassifier = NaiveBayesClassifier(features)
 
 #Read in our testing
 testingList = [];
 with open('testingData', 'r') as f:
     for line in f:
-        testingList.append(line)
+        testingList.append(line.split('%')[0])
 
 #Print our testing data
-for i in range(0, len(testingList) - 1):
-    print clf.classify(testingList[i])
+for i in range(0, len(testingList)):
+    print testingList[i] + "- this haz " + bClassifier.classify(testingList[i])
+
+#Find our accuracy
+testingAccuracy = [];
+with open('testingData', 'r') as f:
+    for line in f:
+        testingList.append([line.split('%')[0], line.split('%')[1]])
+print("Accuracy: " + str(bClassifier.accuracy(testingAccuracy)) + "%")
+
+#Show our most informative features
+bClassifier.show_informative_features(5)
