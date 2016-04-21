@@ -15,7 +15,7 @@ features = []
 memeTrainList = [];
 with open('trainingDataMeme', 'r') as f:
     for line in f:
-        line = line.strip().upper()
+        line = line.strip().lower()
         memeTrainList.append([line, 'meme'])
 
 #Add the memes to the features
@@ -25,7 +25,7 @@ features.extend(memeTrainList)
 noMemeTrainList = [];
 with open('trainingDataNoMeme', 'r') as f:
     for line in f:
-        line = line.strip().upper()
+        line = line.strip().lower()
         noMemeTrainList.append([line, 'nomeme'])
 
 #Add the nomemes to the features
@@ -38,7 +38,7 @@ bClassifier = NaiveBayesClassifier(features)
 testingList = [];
 with open('testingData', 'r') as f:
     for line in f:
-        line = line.strip().upper()
+        line = line.strip().lower()
         testingList.append(line.split('%')[0])
 
 #Print our testing data
@@ -49,7 +49,7 @@ for i in range(0, len(testingList)):
 testingAccuracy = [];
 with open('testingData', 'r') as f:
     for line in f:
-        line = line.strip().upper()
+        line = line.strip().lower()
         testingAccuracy.append([line.split('%')[0], line.split('%')[1]])
 
 #Times 100 for percent
