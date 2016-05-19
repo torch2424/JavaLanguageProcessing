@@ -35,18 +35,19 @@ with open('trainingDataNoMeme', 'r') as f:
 noMemeFeatures.extend(noMemeTrainList)
 
 #Train a classifier iteratively, and use the most accurate
-maxSize = 0;
+classifierDivide = 25
+maxSize = 0
 if len(memeFeatures) > len(noMemeFeatures):
     maxSize = len(noMemeFeatures)
 else:
     maxSize = len(memeFeatures)
 
 #Make sure maxsize is greater than 10
-if maxSize > 10:
+if maxSize < classifierDivide:
     print "plz add some moar memes, need moar than 10 ;)"
 
 #Find our index for 10 iterations
-featureIteration = len(maxSize) / 10
+featureIteration = maxSize / classifierDivide
 
 #Create our features array, and classifiers
 classifierFeatures = []
@@ -59,7 +60,7 @@ for i in range(0, featureIteration):
     classifierFeatures.extend(noMemeFeatures[(i * featureIteration): ((i + 1) * featureIteration)])
 
     #Train a classifier to be added to our array
-    trainedClassifiers.extend(NaiveBayesClassifier(classifierFeatures))
+    trainedClassifiers.append(NaiveBayesClassifier(classifierFeatures))
 
 #Next find the most accurate classifier
 #Find our accuracy
@@ -75,6 +76,10 @@ bClassifier = trainedClassifiers[0]
 for i in range(1, len(trainedClassifiers)):
     if trainedClassifiers[i].accuracy(testingAccuracy) < bClassifier.accuracy(testingAccuracy):
         bClassifier = trainedClassifiers[i]
+        print("hello")
+
+#Print the number of classifiers we tested
+print("Tested Classifiers: " + str(len(trainedClassifiers)))
 
 #Times 100 for percent, print our accuracy
 print("Meme Accuracy: " + str(bClassifier.accuracy(testingAccuracy) * 100) + "%")
