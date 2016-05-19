@@ -8,8 +8,11 @@ sys.setdefaultencoding("utf-8")
 
 print "Welcom 2 meme guesser!"
 
+print "Plz wait we is being loaded..."
+
 #Our testing data features
-features = []
+memeFeatures = []
+noMemeFeatures = []
 
 #Read in our meme training data
 memeTrainList = [];
@@ -19,7 +22,7 @@ with open('trainingDataMeme', 'r') as f:
         memeTrainList.append([line, 'meme'])
 
 #Add the memes to the features
-features.extend(memeTrainList)
+memeFeatures.extend(memeTrainList)
 
 #Read in our non-meme training data
 noMemeTrainList = [];
@@ -29,10 +32,16 @@ with open('trainingDataNoMeme', 'r') as f:
         noMemeTrainList.append([line, 'nomeme'])
 
 #Add the nomemes to the features
-features.extend(noMemeTrainList)
+noMemeFeatures.extend(noMemeTrainList)
+
+#Create a mixed features array
+classifierFeatures = [];
+classifierFeatures.extend(memeFeatures)
+classifierFeatures.extend(noMemeFeatures)
+
 
 #Using a naive bayes Classifier
-bClassifier = NaiveBayesClassifier(features)
+bClassifier = NaiveBayesClassifier(classifierFeatures)
 
 #Read in our testing
 testingList = [];
