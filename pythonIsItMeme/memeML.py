@@ -35,7 +35,7 @@ with open('trainingDataNoMeme', 'r') as f:
 noMemeFeatures.extend(noMemeTrainList)
 
 #Train a classifier iteratively, and use the most accurate
-classifierDivide = 25
+classifierDivide = 23
 maxSize = 0
 if len(memeFeatures) > len(noMemeFeatures):
     maxSize = len(noMemeFeatures)
@@ -76,7 +76,8 @@ bClassifier = trainedClassifiers[0]
 for i in range(1, len(trainedClassifiers)):
     if trainedClassifiers[i].accuracy(testingAccuracy) < bClassifier.accuracy(testingAccuracy):
         bClassifier = trainedClassifiers[i]
-        print("hello")
+        print("More accurate index: " + str(i))
+    print("Meme Accuracy index " + str(i) + ": " + str(bClassifier.accuracy(testingAccuracy) * 100) + "%")
 
 #Print the number of classifiers we tested
 print("Tested Classifiers: " + str(len(trainedClassifiers)))
